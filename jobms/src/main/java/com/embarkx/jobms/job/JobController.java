@@ -1,5 +1,6 @@
 package com.embarkx.jobms.job;
 
+import com.embarkx.jobms.job.dto.JobWithCompanyDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,8 @@ public class JobController {
     }
 
     @GetMapping
-    public  ResponseEntity<List<Job>> findAll() {
-        return new ResponseEntity<>(jobService.findAll(),HttpStatus.OK);
+    public  ResponseEntity <List<JobWithCompanyDTO>> findAll() {
+        return new ResponseEntity<>(jobService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping
