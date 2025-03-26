@@ -6,6 +6,7 @@ import com.embarkx.jobms.job.JobRepository;
 import com.embarkx.jobms.job.JobService;
 import com.embarkx.jobms.job.dto.JobWithCompanyDTO;
 import com.embarkx.jobms.job.external.Company;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,6 +20,8 @@ public class JobServiceImpl implements JobService {
     //private List<Job> jobs= new ArrayList<>();
     JobRepository jobRepository;
 
+    @Autowired
+    RestTemplate restTemplate;
     public JobServiceImpl(JobRepository jobRepository) {
         this.jobRepository = jobRepository;
     }
@@ -34,8 +37,7 @@ public class JobServiceImpl implements JobService {
     private JobWithCompanyDTO converttoDTO(Job job){
             JobWithCompanyDTO jobWithCompanyDTO = new JobWithCompanyDTO();
             jobWithCompanyDTO.setJob(job);
-            RestTemplate restTemplate = new RestTemplate();
-            Company company= restTemplate.getForObject("http://localhost:8081/companies/"+job.getCompanyId(), Company.class);
+            Company company= restTemplate.getForObject("http://COMPANY-SERVICE:8081/companies/"+job.getCompanyId(), Company.class);
             jobWithCompanyDTO.setCompany(company);
            return jobWithCompanyDTO;
     }
